@@ -1,6 +1,2 @@
-#include:
-#  - .ntp
-
-ntp:
-  pkg:
-    - installed
+include:
+  - .ntp
