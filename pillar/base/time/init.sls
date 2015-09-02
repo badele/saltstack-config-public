@@ -1,6 +1,5 @@
 time:
   ntp:
-    password: topsecret
     servers:
       - 0.fr.pool.ntp.org
       - 1.fr.pool.ntp.org
