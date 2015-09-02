@@ -1,0 +1,4 @@
+include:
+  - .elasticsearch
+  - .logstash
+  - .kibana

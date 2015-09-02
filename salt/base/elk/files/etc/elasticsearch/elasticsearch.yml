@@ -1,0 +1,2 @@
+cluster.name: {{ salt['pillar.get']('elk:clustername', 'elk') }}
+node.name: {{ grains.fqdn }}

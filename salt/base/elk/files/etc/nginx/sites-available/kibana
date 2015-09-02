@@ -1,0 +1,52 @@
+server {
+  listen                *:80 ;
+
+  server_name           {{ salt['pillar.get']('elk:hostingname', 'elk') }};
+  access_log            /var/log/nginx/{{ salt['pillar.get']('elk:hostingname', 'elk') }}.access.log;
+
+  location / {
+    root  /opt/kibana-{{ salt['pillar.get']('elk:kibanaversion', 'noversion') }};
+    index  index.html  index.htm;
+  }
+
+  location ~ ^/_aliases$ {
+    proxy_pass http://127.0.0.1:9200;
+    proxy_read_timeout 90;
+  }
+  location ~ ^/.*/_aliases$ {
+    proxy_pass http://127.0.0.1:9200;
+    proxy_read_timeout 90;
+  }
+  location ~ ^/_nodes$ {
+    proxy_pass http://127.0.0.1:9200;
+    proxy_read_timeout 90;
+  }
+  location ~ ^/.*/_search$ {
+    proxy_pass http://127.0.0.1:9200;
+    proxy_read_timeout 90;
+  }
+  location ~ ^/.*/_mapping {
+    proxy_pass http://127.0.0.1:9200;
+    proxy_read_timeout 90;
+  }
+
+  # Password protected end points
+  location ~ ^/kibana-int/dashboard/.*$ {
+    proxy_pass http://127.0.0.1:9200;
+    proxy_read_timeout 90;
+    limit_except GET {
+      proxy_pass http://127.0.0.1:9200;
+      auth_basic "Restricted";
+      auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;
+    }
+  }
+  location ~ ^/kibana-int/temp.*$ {
+    proxy_pass http://127.0.0.1:9200;
+    proxy_read_timeout 90;
+    limit_except GET {
+      proxy_pass http://127.0.0.1:9200;
+      auth_basic "Restricted";
+      auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;
+    }
+  }
+}
