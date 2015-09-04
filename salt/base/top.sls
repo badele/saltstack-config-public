@@ -1,6 +1,7 @@
 base:
   '*':
     - time
+    - home-tools
 
   'elk.home.loc':
     - elk
