@@ -15,6 +15,7 @@ logstash:
     - require:
       - pkg: logstash
     - watch:
+      - file: /etc/logstash/conf.d/varlog.conf
       - file: /etc/logstash/conf.d/syslog.conf
 
 /etc/logstash/conf.d/varlog.conf:
@@ -22,5 +23,13 @@ logstash:
     - managed
     - template: jinja
     - source: salt://elk/files/etc/logstash/conf.d/varlog.conf
+    - require:
+      - pkg: logstash
+
+/etc/logstash/conf.d/syslog.conf:
+  file:
+    - managed
+    - template: jinja
+    - source: salt://elk/files/etc/logstash/conf.d/syslog.conf
     - require:
       - pkg: logstash
