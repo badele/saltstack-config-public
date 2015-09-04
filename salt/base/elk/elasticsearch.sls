@@ -5,14 +5,13 @@ include:
 elasticsearch_repo:
     pkgrepo.managed:
         - humanname: Elasticsearch Debian repository
-        - name: deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main
+        - name: deb http://packages.elasticsearch.org/elasticsearch/{{ salt['pillar.get']('elk:elasticsearchversion', 'noversion') }}/debian stable main
         - dist: stable
         - key_url: https://packages.elastic.co/GPG-KEY-elasticsearch
         - file: /etc/apt/sources.list.d/elasticsearch.list
 
 elasticsearch:
-  pkg:
-    - installed
+  pkg.installed:
     - require:
       - pkg: openjdk-7-jre
       - pkgrepo: elasticsearch_repo

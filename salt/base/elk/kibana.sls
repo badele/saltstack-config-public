@@ -1,6 +1,14 @@
 include:
   - nginx
 
+kibana:
+  service:
+    - running
+    - require:
+      - pkg: nginx
+      - archive: kibana_extract
+      - file: /etc/init.d/kibana
+
 kibana_extract:
   archive.extracted:
     - name: /opt
@@ -28,3 +36,12 @@ kibana_extract:
         service: nginx
   require:
     - file: /etc/nginx/sites-available/kibana
+
+/etc/init.d/kibana:
+  file:
+    - managed
+    - template: jinja
+    - source: salt://elk/files/etc/init.d/kibana
+    - user: root
+    - group: root
+    - mode: 750
