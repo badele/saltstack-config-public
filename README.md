@@ -9,15 +9,19 @@ saltstack-config-public
      * htop
      * mc
 
- * salt.home.loc(the saltstack master server)
-   * commons packages(allcomputers)
+ * HP 658553-421 ProLiant MicroServer
+   * Proxmox
+     
+     * salt.home.loc(the saltstack master server)
+       * commons packages(allcomputers)
 
- * elk.home.loc (Elasticsearch Logstash Kibana server)
-   * commons packages(allcomputers)
-   * curator 
+     * elk.home.loc (Elasticsearch Logstash Kibana server)
+       * commons packages(allcomputers)
+       * curator 
 
- * gw.home.loc(mikrotik router)
-   * forward log to elk.home.loc:5000  
+ * MikroTik RB750GL Switch
+   * gw.home.loc(mikrotik router)
+     * forward log to elk.home.loc:5000  
    
 # Install
 
