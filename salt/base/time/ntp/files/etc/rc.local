@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+# Fix the proxmox problem without use capability
+ntpd -g

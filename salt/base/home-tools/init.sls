@@ -3,3 +3,4 @@ home-tools:
     - pkgs:
       - htop
       - mc
+      - psmisc

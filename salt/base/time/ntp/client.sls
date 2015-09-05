@@ -1,13 +1,23 @@
+include:
+  - home-tools
+
+install_psutil:
+  pkg.installed:
+    - name: python-psutil
+    - require_in:
+        - process: ntp
+
 ntp:
   pkg:
     - installed
-  service:
-    {% if grains['os'] in ['Arch', 'CentOS', 'RedHat'] %}
+  process.absent:
     - name: ntpd
-    {% endif %}
-    - running
+  cmd.run: # Fix and bypass the proxmox capability permission
+    - name: ntpd -g
     - watch:
       - file: /etc/ntp.conf
+    - require:
+      - pkg: home-tools
 
 /etc/ntp.conf:
   file.managed:

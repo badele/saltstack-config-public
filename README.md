@@ -18,7 +18,11 @@ saltstack-config-public
  * **MikroTik RB750GL Switch**
    * **gw.home.loc**(mikrotik switch/router)
      * local DNS
-     * forward log to elk.home.loc:5000  
+     * forward log to elk.home.loc:5000 
+ * **Wireless router**
+   * Openwrt
+ * **French Free box provider**
+   * ISP
    
 # Install
 
