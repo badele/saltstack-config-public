@@ -17,6 +17,7 @@ saltstack-config-public
        * curator 
  * **MikroTik RB750GL Switch**
    * **gw.home.loc**(mikrotik switch/router)
+     * local DNS
      * forward log to elk.home.loc:5000  
    
 # Install
