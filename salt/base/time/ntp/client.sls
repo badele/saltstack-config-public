@@ -1,23 +1,5 @@
 include:
-  - home-tools
-
-install_psutil:
-  pkg.installed:
-    - name: python-psutil
-    - require_in:
-        - process: ntp
-
-ntp:
-  pkg:
-    - installed
-  process.absent:
-    - name: ntpd
-  cmd.run: # Fix and bypass the proxmox capability permission
-    - name: ntpd -g
-    - watch:
-      - file: /etc/ntp.conf
-    - require:
-      - pkg: home-tools
+  - .commons
 
 /etc/ntp.conf:
   file.managed:

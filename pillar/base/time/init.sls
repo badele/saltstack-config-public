@@ -3,9 +3,6 @@ time:
     client:
       servers:
         - ntp.home.loc
-        - fr.pool.ntp.org
-        - europe.pool.ntp.org
-        - pool.ntp.org
     server:
       restrict: restrict 192.168.252.0 mask 255.255.255.0
       servers:

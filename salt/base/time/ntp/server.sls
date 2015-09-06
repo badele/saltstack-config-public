@@ -1,13 +1,5 @@
-ntp:
-  pkg:
-    - installed
-  service:
-    {% if grains['os'] in ['Arch', 'CentOS', 'RedHat'] %}
-    - name: ntpd
-    {% endif %}
-    - running
-    - watch:
-      - file: /etc/ntp.conf
+include:
+  - .commons
 
 /etc/ntp.conf:
   file.managed:
