@@ -4,6 +4,7 @@ time:
       servers:
         - ntp.home.loc
     server:
+      servername: ntp.home.loc
       restrict: restrict 192.168.252.0 mask 255.255.255.0
       servers:
         - ntp.laas.fr

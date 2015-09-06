@@ -1,12 +1,10 @@
 base:
   '*':
-    {% if 'ntp.home.loc' not in grains['id'] %}
-    - time.ntp.client
-    {% endif %}
+    - time
     - home-tools
 
   'ntp.home.loc':
-    - time.ntp.server
+    - time
 
   'elk.home.loc':
     - elk
