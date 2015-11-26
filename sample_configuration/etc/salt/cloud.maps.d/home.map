@@ -1,0 +1,37 @@
+proxmox_debian:
+    - elk.home.loc:
+        ip_address: SetYouIP
+        password: SetYouPassword
+
+        minion:
+            mine_functions:
+                network.ip_addrs:
+                    interface: venet0
+
+    - ntp.home.loc:
+        ip_address: SetYouIP
+        password: SetYouPassword
+
+        minion:
+            mine_functions:
+                network.ip_addrs:
+                    interface: venet0
+
+    - test.home.loc:
+        ip_address: SetYouIP
+        password: SetYouPassword
+
+        minion:
+            mine_functions:
+                network.ip_addrs:
+                    interface: venet0
+
+    - graphite.home.loc:
+        ip_address: SetYouIP
+        password: SetYouPassword
+
+        minion:
+            mine_functions:
+                network.ip_addrs:
+                    interface: venet0
+

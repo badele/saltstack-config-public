@@ -23,11 +23,19 @@ saltstack-config-public
    * Openwrt
  * **French Free box provider**
    * ISP
+
+   
    
 # Install
 
+    The salt version working with proxmox 3.4-3 is 2015.8.0rc3
+
 You can use Rsync to synchonize your salt master plaform
 
-    rsync -avr ROOTPROJECTS/saltstack-config-public username@hostname:/srv/salt
-    rsync -avr ROOTPROJECTS/saltstack-config-private/etc/salt username@hostname:/etc/salt
+    rsync -avr ROOTPROJECTS/saltstack-config-public username@hostname:/srv/salt # (pillar & salt)
+    rsync -avr ROOTPROJECTS/saltstack-config-private/etc/salt username@hostname:/etc/salt # (sample_configuration)
+    
+Create automatically your infra with this command 
+    
+    salt-cloud -m /etc/salt/cloud.maps.d/home.map # (sample_configuration)
 
