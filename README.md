@@ -1,6 +1,11 @@
 # saltstack-config-public
 saltstack-config-public
 
+# Info
+
+I use the **2015.8.0rc3** salt version, i know this version work with proxmox 3.4-3, 
+but the minion is bugged. You must apply the patch (see misc/fix)
+
 # Contains
 
  * **allcomputers.home.loc**(all computers in my local network)
@@ -38,4 +43,6 @@ You can use Rsync to synchonize your salt master plaform
 Create automatically your infra with this command 
     
     salt-cloud -m /etc/salt/cloud.maps.d/home.map # (sample_configuration)
+    cd /usr/lib/python2.7/dist-packages/salt
+    patch < minion.patch
 

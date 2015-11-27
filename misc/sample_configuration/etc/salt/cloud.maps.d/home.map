@@ -26,7 +26,7 @@ proxmox_debian:
                 network.ip_addrs:
                     interface: venet0
 
-    - graphite.home.loc:
+    - influxdb.home.loc:
         ip_address: SetYouIP
         password: SetYouPassword
 
