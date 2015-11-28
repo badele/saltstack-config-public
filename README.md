@@ -8,37 +8,40 @@ but the minion is bugged. You must apply the patch (see misc/fix)
 
 # Contains
 
- * **allcomputers.home.loc**(all computers in my local network)
-   * ntp client
-   * collectd
-   * home-tools
-     * htop
-     * mc
- * **HP 658553-421 ProLiant MicroServer**
-   * Proxmox
-     * **salt.home.loc**(the saltstack master server)
-       * commons packages(allcomputers)
-       * salt-master
-     * **elk.home.loc**(Elasticsearch Logstash Kibana server)
-       * commons packages(allcomputers)
-       * curator 
-     * **ntp.home.loc**(NTP server)
-       * commons packages(allcomputers)
-       * ntpd
-     * **dns.home.loc**(DNS server)
-       * commons packages(allcomputers)
-       * unbound
+    * allcomputers.home.loc (all computers in my local network)
+      * ntp client
+      * collectd
+      * home-tools
+        * htop
+        * mc
+ 
+    * Proxmox / HP 658553-421 ProLiant MicroServer
+      * salt.home.loc (the saltstack master server)
+        * commons packages(allcomputers)
+        * salt-master
+     
+      * elk.home.loc (Elasticsearch Logstash Kibana server)
+        * commons packages(allcomputers)
+        * curator 
+     
+      * **ntp.home.loc (NTP server)
+        * commons packages(allcomputers)
+        * ntpd
+     
+      * **dns.home.loc (DNS server)
+        * commons packages(allcomputers)
+        * unbound
         
- * **MikroTik RB750GL Switch**
-   * **gw.home.loc**(mikrotik switch/router)
-     * local DNS
-     * forward log to elk.home.loc:5000 
- * **Wireless router**
-   * Openwrt
- * **French Free box provider**
-   * ISP
-
-   
+      * MikroTik RB750GL Switch
+        * gw.home.loc (mikrotik switch/router)
+          * local DNS
+          * forward log to elk.home.loc:5000 
+ 
+      * Wireless router
+        * Openwrt
+ 
+      * French Free box provider
+        * ISP
    
 # Install
 
