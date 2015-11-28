@@ -3,7 +3,7 @@
 DST=$1 # username@IP
 
 if [ "$1" == "" ]; then
-    echo "Please set username@hotname"
+    echo "Please set username@minionip"
     exit 1
 fi
 
