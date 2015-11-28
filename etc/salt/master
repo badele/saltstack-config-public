@@ -1,0 +1,24 @@
+fileserver_backend:
+  - roots
+
+file_roots:
+  base:
+    - /srv/salt/private/salt/base
+    - /srv/salt/public/salt/base
+  dev:
+    - /srv/salt/private/salt/dev
+    - /srv/salt/public/salt/dev
+  prod:
+    - /srv/salt/private/salt/prod
+    - /srv/salt/public/salt/prod
+
+pillar_roots:
+  base:
+    - /srv/salt/private/pillar/base
+    - /srv/salt/public/pillar/base
+  dev:
+    - /srv/salt/private/pillar/dev
+    - /srv/salt/public/pillar/dev
+  prod:
+    - /srv/salt/private/pillar/prod
+    - /srv/salt/public/pillar/prod
