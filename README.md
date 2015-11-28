@@ -24,24 +24,28 @@ but the minion is bugged. You must apply the patch (see misc/fix)
         * commons packages(allcomputers)
         * curator 
      
-      * **ntp.home.loc (NTP server)
+      * ntp.home.loc (NTP server)
         * commons packages(allcomputers)
         * ntpd
      
-      * **dns.home.loc (DNS server)
+      * dns.home.loc (DNS server)
         * commons packages(allcomputers)
         * unbound
-        
-      * MikroTik RB750GL Switch
-        * gw.home.loc (mikrotik switch/router)
-          * local DNS
-          * forward log to elk.home.loc:5000 
+
+      * influxdb.home.loc (DNS server)
+        * commons packages(allcomputers)
+        * influxdb
+
+    * MikroTik RB750GL Switch
+      * gw.home.loc (mikrotik switch/router)
+        * local DNS
+        * forward log to elk.home.loc:5000 
  
-      * Wireless router
-        * Openwrt
+    * Wireless router
+      * Openwrt
  
-      * French Free box provider
-        * ISP
+    * French Free box provider
+      * ISP
    
 # Install
 
@@ -72,3 +76,13 @@ Create automatically your infrastructure with this command
 
     # Manual installation from computer
     curl -L https://bootstrap.saltstack.com | sh -s -- -PA ip_salt_master git v2015.8.0rc3
+    
+### Fix
+
+    # Fix the v2015.8.0rc3 bug
+    cd tools/fix/
+    ./prepare_minion.sh username@minionip
+
+### Inspired by:
+    
+    * influx => https://github.com/seegno/influxdb-formula
