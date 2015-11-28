@@ -1,0 +1,14 @@
+# vi: set ft=sls :
+# WARNING: This file is managed by Salt
+# DO NOT EDIT MANUALLY
+
+{{ pillar["influxdb"]["logging"]["directory"] }}/*.log {
+  daily
+  rotate 3
+  copytruncate
+  compress
+  delaycompress
+  notifempty
+  missingok
+  su influxdb influxdb
+}

@@ -1,0 +1,75 @@
+{% from "influxdb/map.jinja" import map with context %}
+{% from "influxdb/map.jinja" import influxdb with context %}
+
+{% if grains['os_family'] == 'Debian' %}
+{% if influxdb['version'] is defined %}
+  {% set filename = "influxdb_" + influxdb['version'] + "_" + grains['osarch'] + ".deb" %}
+{% else %}
+  {% set filename = "influxdb_latest_" + grains['osarch'] + ".deb" %}
+{% endif %}
+{% elif grains['os_family'] == 'RedHat' %}
+{% if influxdb['version'] is defined %}
+  {% set filename = "influxdb-" + influxdb['version'] + "-1." + grains['osarch'] + ".rpm" %}
+{% else %}
+  {% set filename = "influxdb-latest-1." + grains['osarch'] + ".rpm" %}
+{% endif %}
+{% endif %}
+
+influxdb_package:
+  cmd.run:
+    - name: wget -qO /tmp/{{ filename }} http://s3.amazonaws.com/influxdb/{{ filename }}
+    - unless: test -f /tmp/{{ filename }}
+
+influxdb_install:
+  pkg.installed:
+    - sources:
+      - influxdb: /tmp/{{ filename }}
+    - require:
+      - cmd: influxdb_package
+    - watch:
+      - cmd: influxdb_package
+
+influxdb_confdir:
+  file.directory:
+    - name: /etc/influxdb
+    - owner: root
+    - group: root
+    - mode: 755
+
+influxdb_config:
+  file.managed:
+    - name: /etc/influxdb/influxdb.conf
+    - source: salt://influxdb/templates/influxdb.conf.jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+
+influxdb_log:
+  file.directory:
+    - name: {{ influxdb["logging"]["directory"] }}
+    - user: root
+    - group: root
+    - mode: 755
+
+influxdb_logrotate:
+  file.managed:
+    - name: /etc/logrotate.d/influxdb
+    - source: salt://influxdb/templates/logrotate.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - watch:
+      - file: influxdb_log
+
+influxdb_start:
+  service.running:
+    - name: influxdb
+    - enable: True
+    - watch:
+      - pkg: influxdb_install
+      - file: influxdb_config
+    - require:
+      - pkg: influxdb_install
+      - file: influxdb_config

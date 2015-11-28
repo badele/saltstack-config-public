@@ -1,0 +1,21 @@
+# vi: set ft=sls :
+{%
+  set influxdb = {
+    "bind-address" : "0.0.0.0",
+    "influxdb_data": "/var/lib/influxdb",
+    "logging" : {
+      "directory": "/var/log/influxdb"
+    },
+    "admin" : {
+      "port" : "8083"
+    },
+    "meta" : {
+      "port" : "8088"
+    },
+    "http" : {
+      "port" : "8086"
+    }
+  }
+%}
+
+{% do influxdb.update(salt["pillar.get"]("influxdb")) %}
