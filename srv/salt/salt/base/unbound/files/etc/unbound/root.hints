@@ -1,3 +1,6 @@
+; WARNING: This file is managed by Salt
+; DO NOT EDIT MANUALLY
+
 ;       This file holds the information on root name servers needed to
 ;       initialize cache of Internet domain name servers
 ;       (e.g. reference this file in the "cache  .  <file>"
