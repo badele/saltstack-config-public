@@ -1,0 +1,158 @@
+{% set os_map = salt['grains.filter_by']({
+    'Debian': {
+        'config': '/etc/collectd/collectd.conf',
+        'javalib': '/usr/lib/collectd/java.so',
+        'pkg': 'collectd-core',
+        'plugindirconfig': '/etc/collectd/plugins',
+        'service': 'collectd',
+        'TypesDB': ['/usr/share/collectd/types.db'],
+        'moduledirconfig': '/usr/share/collectd/modules',
+        'user': 'root',
+        'group': 'root',
+    },
+    'RedHat': {
+        'config': '/etc/collectd.conf',
+        'pkg': 'collectd',
+        'plugindirconfig': '/etc/collectd.d',
+        'service': 'collectd',
+        'TypesDB': ['/usr/share/collectd/types.db'],
+        'moduledirconfig': '/usr/share/collectd/modules',
+        'user': 'root',
+        'group': 'root',
+    },
+    'FreeBSD': {
+        'config': '/usr/local/etc/collectd.conf',
+        'pkg': 'collectd5',
+        'plugindirconfig': '/usr/local/etc/collectd.d',
+        'service': 'collectd',
+        'TypesDB': ['/usr/local/share/collectd/types.db'],
+        'moduledirconfig': '/usr/local/share/collectd/modules',
+        'user': 'root',
+        'group': 'wheel',
+    },
+}, merge=salt['pillar.get']('collectd:lookup')) %}
+
+{# Settings dictionary with default values #}
+{% set default_settings = {
+    'collectd': {
+        'Hostname': salt['grains.get']('fqdn'),
+        'Interval': 10,
+        'Timeout': 2,
+        'ReadThreads': 5,
+        'WriteQueueLimitHigh': 2000000,
+        'WriteQueueLimitLow': 1800000,
+        'CollectInternalStats': 'false',
+        'FQDNLookup': 'false',
+        'plugins': {
+            'default': [
+                'battery',
+                'cpu',
+                'entropy',
+                'load',
+                'memory',
+                'swap',
+                'users'
+            ],
+            'apache': {
+                'instances' : [ {
+                        'name': 'name',
+                        'url': 'http://' + salt['grains.get']('host') + '/server-status?auto',
+                        'verifypeer': 'false',
+                        'verifyhost': 'false',
+                        'server': 'apache'
+                    }
+                ]
+            },
+            'df': {
+                'Devices': [],
+                'IgnoreSelected': 'false',
+                'ReportByDevice': 'false',
+                'ReportReserved': 'false',
+                'ReportInodes': 'false',
+                'ValuesPercentage': 'false'
+            },
+            'disk': {
+                'matches': [],
+                'IgnoreSelected': 'false'
+            },
+            'enable': false,
+            'ethstat': {
+                'interface': 'eth0'
+            },
+            'interface': {
+                'interfaces': ['eth0'],
+                'IgnoreSelected': 'false'
+            },
+            'java': {
+                'host': 'localhost',
+                'port': '17264',
+            },
+            'md': {
+                'Devices': [],
+                'IgnoreSelected': 'true'
+            },
+            'mysql': {
+                'databases': []
+            },
+            'network': {},
+            'nginx': {
+                'url': 'http://localhost/check_status',
+            },
+            'ntpd': {
+                'host': 'localhost',
+                'port': '123',
+                'ReverseLookups': 'false'
+            },
+            'ping': {
+                'hosts': ['google.com', 'yahoo.com'],
+                'hosts_from_grains': {},
+            },
+            'postgresql': {
+                'databases': []
+            },
+            'processes': {
+                'Processes': [],
+                'ProcessMatches': []
+            },
+            'statsd': {
+                'host': '"::"',
+                'port': 8125
+            },
+            'syslog': {
+                'loglevel': 'info'
+            },
+            'write_graphite': {
+                'host': salt['grains.get']('fqdn'),
+                'port': 2003,
+                'prefix': 'collectd',
+                'postfix': ''
+            },
+            'python': {
+                'Globals': 'true'
+            },
+            'elasticsearch': {
+            	'host': 'localhost',
+            	'port': 9200,
+            	'cluster': 'elasticsearch',
+            	'version': '1.0',
+            	'verbose': 0
+            },
+            'redis_info': {
+            	'host': 'localhost',
+            	'port': 6379,
+            	'verbose': 0
+            },
+            'rrdtool': {
+                'datadir': '/var/lib/collectd/rrd',
+                'cacheflush': 120,
+                'writespersecond': 50 
+            }
+        }
+    }
+} %}
+
+{# Merge os_map into settings dictionary #}
+{% do default_settings.collectd.update(os_map) %}
+
+{# Update settings defaults from pillar data #}
+{% set collectd_settings = salt['pillar.get']('collectd', default=default_settings.collectd, merge=True) %}

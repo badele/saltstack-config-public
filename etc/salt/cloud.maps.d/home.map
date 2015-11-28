@@ -17,6 +17,15 @@ proxmox_debian:
                 network.ip_addrs:
                     interface: venet0
 
+    - dns.home.loc:
+        ip_address: SetYouIP
+        password: SetYouPassword
+
+        minion:
+            mine_functions:
+                network.ip_addrs:
+                    interface: venet0
+
     - test.home.loc:
         ip_address: SetYouIP
         password: SetYouPassword
