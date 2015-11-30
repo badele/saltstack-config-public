@@ -1,0 +1,7 @@
+{%
+    set grafana = {
+        "version" : "0.0.0.0"
+    }
+%}
+
+{% do grafana.update(salt["pillar.get"]("grafana")) %}
