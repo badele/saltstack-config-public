@@ -1,0 +1,130 @@
+collectd:
+  FQDNLookup: true
+  TypesDB: ['/usr/share/collectd/types.db']
+  plugins:
+    default: [battery, cpu, entropy, load, memory, swap, users]
+    enable: false
+    apache:
+      instances:
+        - name: name
+          url: 'http://localhost/server-status?auto'
+          user: user
+          pass: pass
+    dbi:
+      queries:
+        - name: mysql_user_connections
+          statement: SELECT user, count(*) as nof_connections FROM information_schema.processlist GROUP BY user
+          results:
+            - type: gauge
+              instancePrefix: mysql_user_connections
+              instancesFrom: user
+              valuesFrom: nof_connections
+      databases:
+        - name: name
+          driver: mysql
+          queries:
+            - mysql_user_connections
+          driverOptions:
+            - name: host
+              value: {{ salt['grains.get']('ip4_interfaces:eth1')[0] }}
+            - name: username
+              value: user
+            - name: password
+              value: pass
+    syslog:
+      loglevel: info
+    network:
+      host: 'logstash'
+      port: 25826
+      securitylevel: 'Encrypt'
+      username: 'user'
+      password: 'password'
+    mysql:
+      databases:
+        - host: 'foo'
+          port: '3306'
+          user: 'myuser'
+          pass: 'mypass'
+          name: 'mydb'
+          masterstats: true
+        - host: 'foo'
+          name: 'mydb'
+          socket: '/var/run/mysql/mysqld.sock'
+          slavestats: true
+          slavenotifications: true
+    postgresql:
+      databases:
+        - host: 'localhost'
+          port: '5432'
+          user: 'myuser'
+          pass: 'mypass'
+          name: 'mydb'
+    df:
+      Devices:
+        - 'md1'
+        - 'md2'
+      MountPoints:
+        - '/home'
+      FSTypes:
+        - 'ext4'
+        - 'tmpfs'
+      IgnoreSelected: false
+      ReportByDevice:
+      ReportReserved:
+      ReportInodes:
+    ntpd:
+      host: localhost
+      port: 123
+      ReverseLookups: 'false'
+    java:
+      host: localhost
+      port: 17264
+      user: ''
+      pass: ''
+      lib: '/usr/lib/jvm/java-7-oracle/jre/lib/amd64/libjava.so'
+    ethstat:
+      interface: 'eth0'
+    interface:
+      interfaces: ['eth0', 'lo0']
+      IgnoreSelected: 'false'
+    # defaults as of 20141103
+    ping:
+      hosts: ['google.com', 'yahoo.com']
+      #interval: 1.0
+      #timeout: 0.9
+      #ttl: 64
+      #sourceaddress: 10.0.1.1
+      #device: eth0
+      #maxmissed: -1
+    disk:
+      matches: ['/^[hs]d[a-f][0-9]?$/']
+    write_graphite:
+      host: graphite-host
+      port: "2003"
+      prefix: "collectd"
+      postfix: ""
+      protocol: "tcp"
+      logsenderrors: false
+      escapecharacter: "_"
+      separateinstances: true
+      storerates: true
+      alwaysappendds: false
+    processes:
+      - java
+      - python
+    statsd:
+      host: localhost
+      port: 8125
+    md:
+      Device: ['md1', 'md2']
+      IgnoreSelected: false
+    python:
+      Globals: true
+      ModulePath: "/usr/share/collectd/modules"
+      LogTraces: true
+      Interactive: false
+      modules:
+        - name: module_name
+          variables:
+            var1: value1
+            var2: value2
