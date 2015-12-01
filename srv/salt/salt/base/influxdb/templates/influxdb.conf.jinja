@@ -212,12 +212,12 @@ reporting-disabled = false
 ###
 
 [[graphite]]
-  enabled = false
-  # database = "graphite"
-  # bind-address = ":2003"
-  # protocol = "tcp"
-  # consistency-level = "one"
-  # name-separator = "."
+  enabled = {{ influxdb.graphite.enabled }}
+  database = "graphite"
+  bind-address = ":2003"
+  protocol = "tcp"
+  consistency-level = "one"
+  name-separator = "."
 
   # These next lines control how batching works. You should have this enabled
   # otherwise you could get dropped metrics or poor performance. Batching

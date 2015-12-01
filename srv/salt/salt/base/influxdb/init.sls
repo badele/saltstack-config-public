@@ -48,8 +48,8 @@ influxdb_config:
 influxdb_log:
   file.directory:
     - name: {{ influxdb["logging"]["directory"] }}
-    - user: root
-    - group: root
+    - user: influxdb
+    - group: influxdb
     - mode: 755
 
 influxdb_logrotate:
