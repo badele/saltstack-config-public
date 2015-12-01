@@ -21,4 +21,4 @@
 %}
 
 {# Update settings defaults from pillar data #}
-{% set unbound_conf = salt['pillar.get']('unbound', default=default_settings, merge=False) %}
+{% set unbound_conf = salt['pillar.get']('unbound', default=default_settings, merge=True) %}

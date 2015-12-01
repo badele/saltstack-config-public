@@ -8,7 +8,7 @@ echo $SALT_DST
 echo $HOME_PROJECTS
 
 # Conf
-rsync -ar --exclude */.git $HOME_PROJECTS/saltstack-config-private/etc/ $SALT_DST:/etc/
+rsync -ar --exclude */.git $HOME_PROJECTS/saltstack-config-public/etc/ $SALT_DST:/etc/
 rsync -ar --exclude */.git $HOME_PROJECTS/saltstack-config-private/etc/ $SALT_DST:/etc/
 
 

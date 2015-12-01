@@ -26,6 +26,15 @@ proxmox_debian:
                 network.ip_addrs:
                     interface: venet0
 
+    - influxdb.home.loc:
+        ip_address: SetYouIP
+        password: SetYouPassword
+
+        minion:
+            mine_functions:
+                network.ip_addrs:
+                    interface: venet0
+
     - test.home.loc:
         ip_address: SetYouIP
         password: SetYouPassword
@@ -35,12 +44,4 @@ proxmox_debian:
                 network.ip_addrs:
                     interface: venet0
 
-    - influxdb.home.loc:
-        ip_address: SetYouIP
-        password: SetYouPassword
-
-        minion:
-            mine_functions:
-                network.ip_addrs:
-                    interface: venet0
 

@@ -1,7 +1,11 @@
+# Salt
+
 base:
   '*':
     - time
     - home-tools
+    - collectd
+    - collectd.write_graphite
 
   'ntp.home.loc':
     - time
@@ -15,5 +19,15 @@ base:
   'influxdb.home.loc':
     - influxdb
 
-#  'salt-test.home.loc':
-#    - time
+  'grafana.home.loc':
+    - grafana
+
+#  # Proxmox
+#  'p0*.home.loc':
+#    - collectd
+#    - collectd.write_graphite
+
+  'test.home.loc':
+    - time
+    - collectd
+    - collectd.write_graphite

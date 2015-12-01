@@ -75,6 +75,7 @@ Create automatically your infrastructure with this command
 ### Manual installation
 
     # Manual installation from computer
+    apt-get install curl
     curl -L https://bootstrap.saltstack.com | sh -s -- -PA ip_salt_master git v2015.8.0rc3
     
 ### Fix
@@ -85,4 +86,6 @@ Create automatically your infrastructure with this command
 
 ### Inspired by:
     
+    * collectd => https://github.com/saltstack-formulas/collectd-formula
     * influx => https://github.com/seegno/influxdb-formula
+    * grafana => https://github.com/666jfox777/saltstack-grafana-formula

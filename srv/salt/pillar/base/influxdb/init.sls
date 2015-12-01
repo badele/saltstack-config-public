@@ -11,3 +11,6 @@ influxdb:
     port: 8090
   protobuf:
     port: 8099
+
+  graphite:
+    enabled: 'false'

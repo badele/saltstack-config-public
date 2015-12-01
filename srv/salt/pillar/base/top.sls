@@ -1,3 +1,5 @@
+# Pillar
+
 base:
   '*':
     - time
@@ -11,3 +13,10 @@ base:
 
   'influxdb.home.loc':
     - influxdb
+
+  # Proxmox
+  'p0*.home.loc':
+    - collectd
+
+  'test.home.loc':
+    - collectd
