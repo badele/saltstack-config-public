@@ -29,5 +29,4 @@ base:
 
   'test.home.loc':
     - time
-    - collectd
-    - collectd.write_graphite
+    - diamond
