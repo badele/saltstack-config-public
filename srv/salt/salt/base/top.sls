@@ -4,8 +4,9 @@ base:
   '*':
     - time
     - home-tools
-    - collectd
-    - collectd.write_graphite
+#    - collectd
+#    - collectd.write_graphite
+    - diamond
 
   'ntp.home.loc':
     - time

@@ -13,6 +13,7 @@ requirements_pkg:
   pkg.installed:
     - pkgs:
       - python-support
+      - python-configobj
 
 install_diamond:
   cmd.run:
