@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case "$1" in
+    start)
+	    nohup python /opt/graphite/bin/run-graphite-devel-server.py /opt/graphite &
+        ;;
+    stop)
+        ps aux | grep django-admin | grep -v grep | awk '{print $2}' | xargs kill
+        ;;
+    *)
+        echo "Usage: graphite {start|stop}" >&2
+        exit 3
+        ;;
+esac

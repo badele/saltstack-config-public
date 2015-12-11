@@ -1,0 +1,7 @@
+{%
+    set graphite = {
+
+    }
+%}
+
+{% do graphite.update(salt["pillar.get"]("graphite")) %}
