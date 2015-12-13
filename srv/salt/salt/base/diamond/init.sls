@@ -1,27 +1,15 @@
 {% from "diamond/map.jinja" import diamond_settings with context %}
 
-# see documentation for buld package https://github.com/python-diamond/Diamond/wiki/Installation
-diamond_deb:
-  file.managed:
-    - name: /tmp/diamond_{{ diamond_settings.version }}_all.deb
-    - source: salt://diamond/files/diamond_4.0.332_all.deb
-    - user: root
-    - group: root
-    - mode: 644
+diamond_uninstalled:
+  pkg.purged:
+    - name: diamond
 
-requirements_pkg:
-  pkg.installed:
-    - pkgs:
-      - python-support
-      - python-configobj
-
-install_diamond:
-  cmd.run:
-    - name: dpkg -i /tmp/diamond_{{ diamond_settings.version }}_all.deb
-    - unless: ls /usr/bin/diamond
+diamond:
+  pip.installed:
+    - name: 'git+https://github.com/badele/Diamond.git'
     - require:
-      - pkg: requirements_pkg
-      - file: diamond_deb
+        - pkg: diamond_uninstalled
+
 
 /etc/diamond/diamond.conf:
   file.managed:
@@ -31,10 +19,18 @@ install_diamond:
     - group: root
     - mode: 644
 
-diamond:
-  service.running:
-    - enable: True
+{% if grains['os_family'] == 'Debian' %}
+/etc/init.d/diamond:
+  file.managed:
+    - source: salt://diamond/files/etc/init.d/diamond
+    - user: root
+    - group: root
+    - mode: 755
+  cmd.run:
+    - name: /etc/init.d/diamond restart
     - require:
-      - cmd: install_diamond
+      - pip: diamond
+      - file: /etc/diamond/diamond.conf
     - watch:
       - file: /etc/diamond/diamond.conf
+{% endif %}
