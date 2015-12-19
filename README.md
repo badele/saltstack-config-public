@@ -10,7 +10,7 @@ but the minion is bugged. You must apply the patch (see misc/fix)
 
     * allcomputers.home.loc (all computers in my local network)
       * ntp client
-      * collectd
+      * diamond
       * home-tools
         * htop
         * mc
@@ -32,9 +32,13 @@ but the minion is bugged. You must apply the patch (see misc/fix)
         * commons packages(allcomputers)
         * unbound
 
-      * influxdb.home.loc (DNS server)
+      * graphite.home.loc (Carbon & Graphite server)
         * commons packages(allcomputers)
-        * influxdb
+        * graphite
+
+      * grafana.home.loc (grafana)
+        * commons packages(allcomputers)
+        * grafana
 
     * MikroTik RB750GL Switch
       * gw.home.loc (mikrotik switch/router)
@@ -70,7 +74,10 @@ Create automatically your infrastructure with this command
     
     # Create a new computers from cloud.maps.d 
     salt-cloud -m /etc/salt/cloud.maps.d/home.map
-    tools/fix/prepare_minion username@hostname
+    
+    # From your github project folder
+    cd tools/fix/
+    tools/fix/prepare_minion.sh username@hostname
 
 ### Manual installation
 

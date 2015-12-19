@@ -4,8 +4,6 @@ base:
   '*':
     - time
     - home-tools
-#    - collectd
-#    - collectd.write_graphite
     - diamond
 
   'ntp.home.loc':
@@ -14,14 +12,19 @@ base:
   'dns.home.loc':
     - unbound
 
-  'elk.home.loc':
-    - elk
+#  'elk.home.loc':
+#    - elk
 
-  'influxdb.home.loc':
-    - influxdb
+  'graphite.home.loc':
+    - graphite
 
   'grafana.home.loc':
     - grafana
+
+  'mqtt.home.loc':
+    - mqtt.server
+    - mqtt.client
+
 
 #  # Proxmox
 #  'p0*.home.loc':
@@ -31,3 +34,4 @@ base:
   'test.home.loc':
     - time
     - diamond
+    - graphite

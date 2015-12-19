@@ -1,0 +1,2 @@
+mosquitto-clients:
+  pkg.installed
