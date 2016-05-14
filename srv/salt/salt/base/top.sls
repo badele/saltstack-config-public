@@ -24,6 +24,7 @@ base:
   'mqtt.home.loc':
     - mqtt.server
     - mqtt.client
+    - mqtt.mqtt2graphite
 
 
 #  # Proxmox
@@ -35,3 +36,6 @@ base:
     - time
     - diamond
     - graphite
+
+  'homeassistant.home.loc':
+    - homeassistant
