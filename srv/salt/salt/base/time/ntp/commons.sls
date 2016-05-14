@@ -8,12 +8,11 @@ python-psutil:
 ntp:
   pkg:
     - installed
-  process.absent:
-    - name: ntpd
   cmd.run: # Fix and bypass the proxmox capability permission
+    - unless: pidof ntpd
     - name: ntpd -g
     - watch:
       - file: /etc/ntp.conf
     - require:
-      - pkg: home-tools
+      - pkg: home-tools-packages
       - pkg: python-psutil
