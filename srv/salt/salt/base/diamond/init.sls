@@ -5,8 +5,8 @@ diamond_uninstalled:
     - name: diamond
 
 diamond:
-  pip.installed:
-    - name: 'git+https://github.com/badele/Diamond.git'
+  cmd.run:
+    - name: 'pip install git+https://github.com/badele/Diamond.git'
     - require:
         - pkg: diamond_uninstalled
 
