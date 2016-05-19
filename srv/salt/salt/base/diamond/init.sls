@@ -1,14 +1,15 @@
 {% from "diamond/map.jinja" import diamond_settings with context %}
 
-diamond_uninstalled:
-  pkg.purged:
-    - name: diamond
+#diamond_uninstalled:
+#  pkg.purged:
+#    - name: diamond
 
 diamond:
   cmd.run:
+    - unless: less /usr/bin/diamond
     - name: 'pip install git+https://github.com/badele/Diamond.git'
-    - require:
-        - pkg: diamond_uninstalled
+#    - require:
+#        - pkg: diamond_uninstalled
 
 
 /etc/diamond/diamond.conf:

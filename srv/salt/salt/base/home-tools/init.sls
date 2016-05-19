@@ -1,6 +1,7 @@
-packages:
+home-tools-packages:
   pkg.installed:
     - pkgs:
+      - tmux
       - htop
       - mc
       - psmisc # killall
@@ -8,6 +9,7 @@ packages:
 
 pip-install:
   cmd.run:
+    - unless: ls /usr/bin/pip3
     - name: easy_install pip
     - require:
-      - pkg: packages
+      - pkg: home-tools-packages

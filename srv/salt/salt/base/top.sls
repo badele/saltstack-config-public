@@ -4,6 +4,7 @@ base:
   '*':
     - time
     - home-tools
+    - home-tools.locale
     - diamond
 
   'ntp.home.loc':
