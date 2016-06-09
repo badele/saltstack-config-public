@@ -39,4 +39,4 @@ base:
     - graphite
 
   'homeassistant.home.loc':
-    - homeassistant
+    - rpi.armv7.homeassistant
