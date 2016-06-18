@@ -39,6 +39,11 @@ but the minion is bugged. You must apply the patch (see misc/fix)
       * grafana.home.loc (grafana)
         * commons packages(allcomputers)
         * grafana
+        
+      * monitoring.home.loc (OMD)
+        * check_mk
+          * nagios
+          * nagvis
 
     * MikroTik RB750GL Switch
       * gw.home.loc (mikrotik switch/router)
@@ -55,49 +60,34 @@ but the minion is bugged. You must apply the patch (see misc/fix)
 
 ## Proxmox
 
-### Ubuntu openvz template
+### Requirements servers & client
+
+#### Ubuntu openvz template
 
 Download from http://download.openvz.org/template/precreated/ubuntu-14.04-x86_64-minimal.tar.gz and install to  /var/lib/vz/template/cache (proxmox server)
 
-### Default network configuration
-
-```text
-# Auto generated lo interface
-auto lo
-iface lo inet loopback
-
-# Auto generated venet0 interface
-auto venet0
-iface venet0 inet manual
-	up ifconfig venet0 up
-	up ifconfig venet0 127.0.0.2
-	up route add default dev venet0
-	down route del default dev venet0
-	down ifconfig venet0 down
-
-
-iface venet0 inet6 manual
-	up route -A inet6 add default dev venet0
-	down route -A inet6 del default dev venet0
-
-auto venet0:0
-iface venet0:0 inet dhcp
-```
-
-
-
-## Master  
-    
-The salt version working with proxmox 3.4-3 is 2015.8.0rc3
+#### Master  
     
     apt-get update
-    apt-get install curl git python-ipy
+    apt-get install curl git python-ipy apt-transport-https
     curl -L https://bootstrap.saltstack.com | sh -s -- -M -N stable 2015.8
+
+### New instance creation
+
+### Default network configuration
+
+During installation, create venet (routed mode) network interface
+
+### Minion installation
+
+    # Manual installation from computer
+    apt-get update
+    apt-get install curl apt-transport-https
+    curl -L https://bootstrap.saltstack.com | sh -s -- -PA ip_salt_master stable 2015.8
 
 ## Sync the salt formulas
 
-    # Export variables in your .bashrc or .zshrc
-    # ./sync_to_master.sh 
+    # ./sync_to_master.sh root@x.x.x.x 
 
 ## Minion
     
