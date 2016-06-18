@@ -2,10 +2,12 @@
 
 base:
   '*':
-    - time
-    - home-tools
-    - home-tools.locale
-    - diamond
+    - commons.packages
+    - commons.time
+    - commons.locale
+    - python.v2
+    - monitoring.diamond
+    - monitoring.omd.agent
 
   'ntp.home.loc':
     - time
@@ -40,3 +42,8 @@ base:
 
   'homeassistant.home.loc':
     - rpi.armv7.homeassistant
+
+  # Ubuntu 14.04
+  'monitoring.home.loc':
+#    - rpi.raspbian.omd
+    - monitoring.omd.server
