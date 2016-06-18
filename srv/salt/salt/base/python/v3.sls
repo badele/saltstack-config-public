@@ -1,22 +1,17 @@
-home-tools-packages:
-  pkg.installed:
-    - pkgs:
-      - tmux
-      - htop
-      - mc
-      - psmisc # killall
+# Tested on Ubuntu 14.04
 
 # Debian section
 {% if grains['os_family'] == 'Debian' %}
-home-tools-distrib-packages:
+python3-packages:
   pkg.installed:
     - pkgs:
       - python3
+      - python3-pip
 {% endif %}
 
 # Archlinux section
 {% if grains['os_family'] == 'Arch' %}
-home-tools-distrib-packages:
+python3-packages:
   pkg.installed:
     - pkgs:
       - python
@@ -26,7 +21,7 @@ pip-install:
     - unless: ls /usr/bin/pip3
     - name: easy_install pip
     - require:
-      - pkg: home-tools-distrib-packages
+      - pkg: default-commons--packages
 {% endif %}
 
 
