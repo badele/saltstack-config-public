@@ -3,7 +3,18 @@ Europe/Paris:
     - utc: True
 
 # For archlinux
-{% if grains['os_family'] == 'Arch' %}
+{% if grains['os_family'] == 'Debian' %}
+locale_fr:
+  locale.present:
+    - name: fr_FR.UTF-8
+
+default_locale:
+  locale.system:
+    - name: fr_FR.UTF-8
+    - require:
+      - locale: locale_fr
+
+{% else %}
 
 /etc/locale.gen:
   file.uncomment:
@@ -16,23 +27,9 @@ locale-gen:
 
 /etc/locale.conf:
   file.managed:
-    - source: salt://home-tools/files/etc/locale.conf
+    - source: salt://commons/files/etc/locale.conf
     - mode: 644
     - template: jinja
     - require:
       - cmd: locale-gen
-
-
-# End Archlinux section
-{% else %}
-
-fr_locale:
-  locale.present:
-    - name: fr_FR.UTF-8
-
-default_locale:
-  locale.system:
-    - name: fr_FR.UTF-8
-    - require:
-      - locale: fr_locale
 {% endif %}

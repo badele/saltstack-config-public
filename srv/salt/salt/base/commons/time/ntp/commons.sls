@@ -1,5 +1,5 @@
 include:
-  - home-tools
+  - commons
 
 # For salt states process.absent
 python-psutil:
@@ -14,5 +14,5 @@ ntp:
     - watch:
       - file: /etc/ntp.conf
     - require:
-      - pkg: home-tools-packages
+      - pkg: default-commons-packages
       - pkg: python-psutil
