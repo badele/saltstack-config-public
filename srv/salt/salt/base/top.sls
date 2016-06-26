@@ -5,12 +5,12 @@ base:
     - commons.packages
     - commons.time
     - commons.locale
-    - python.v2
+    - language.python.v2
     - monitoring.diamond
     - monitoring.omd.agent
 
   'ntp.home.loc':
-    - time
+    - commons.time.ntp.server
 
   'dns.home.loc':
     - unbound

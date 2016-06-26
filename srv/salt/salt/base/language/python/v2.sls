@@ -7,6 +7,14 @@ python2-packages:
     - pkgs:
       - python
       - python-pip
+
+/usr/local/bin/my_pip2:
+  file.managed:
+    - source: salt://language/python/files/my_pip2.sh
+    - mode: 755
+    - template: jinja
+    - require:
+      - pkg: python2-packages
 {% endif %}
 
 # Archlinux section

@@ -56,6 +56,15 @@ but the minion is bugged. You must apply the patch (see misc/fix)
     * French Free box provider
       * ISP
    
+   
+*Note:*
+
+    * ntp.home.loc (NTP server)
+      * For proxmox instance creation
+        * vzctl set INSTANCEID --capability sys_time:on --save
+
+
+    
 # Install
 
 ## Proxmox
@@ -88,31 +97,6 @@ During installation, create venet (routed mode) network interface
 ## Sync the salt formulas
 
     # ./sync_to_master.sh root@x.x.x.x 
-
-## Minion
-    
-### salt-cloud
-
-Create automatically your infrastructure with this command 
-    
-    # Create a new computers from cloud.maps.d 
-    salt-cloud -m /etc/salt/cloud.maps.d/home.map
-    
-    # From your github project folder
-    cd tools/fix/
-    tools/fix/prepare_minion.sh username@hostname
-
-### Manual installation
-
-    # Manual installation from computer
-    apt-get install curl
-    curl -L https://bootstrap.saltstack.com | sh -s -- -PA ip_salt_master git v2015.8.0rc3
-    
-### Fix
-
-    # Fix the v2015.8.0rc3 bug
-    cd tools/fix/
-    ./prepare_minion.sh username@minionip
 
 ### Inspired by:
     
