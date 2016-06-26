@@ -12,7 +12,7 @@ include:
 diamond:
   cmd.run:
     - unless: ls /usr/local/bin/diamond
-    - name: 'pip2 install git+https://github.com/badele/Diamond.git'
+    - name: 'my_pip2 install git+https://github.com/badele/Diamond.git'
 #    - require:
 #        - pkg: diamond_uninstalled
 
